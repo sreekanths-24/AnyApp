@@ -1,14 +1,23 @@
+import { useEffect, useState } from "react";
+import AppRouter from "./app/router/AppRouter";
+import LoadingScreen from "./components/loadingScreen/LoadingScreen";
+
 function App() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white">
-      <div className="text-center">
-        <h1 className="text-6xl font-bold">AnyApp</h1>
-        <p className="mt-4 text-xl text-gray-400">
-          Describe it. Use it.
-        </p>
-      </div>
-    </div>
-  );
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
+  return <AppRouter />;
 }
 
 export default App;
